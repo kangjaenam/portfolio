@@ -1,0 +1,58 @@
+/* 홈 아이콘 시작 */
+#logo{
+    margin-top: 70px;
+    margin-left: 100px;
+}
+
+/* body안에 들어가는 내용 전체 적용하는 양옆, 위 여백 시작 */
+.body_div{
+    padding-left: 150px;
+    padding-right: 150px;
+    padding-top: 30px;
+    width: 100%;
+    height: 100%;
+}
+/* body안에 들어가는 내용 전체 적용하는 양옆, 위 여백 끝 */
+
+/* 추천수별 또는 조회수별 선택 박스 시작 */
+  .box {
+  margin-left: 335px;
+  margin-top: 33px;
+  }
+  .box select {
+    font-family: 'Hanna', serif;
+    background-color: #fd6262;
+    color: rgb(255, 255, 255);
+    padding: 12px;
+    width: 120px;
+    border: none;
+    font-size: 20px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+    -webkit-appearance: button;
+    appearance: button;
+    outline: none;
+  }
+  
+  .box::before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20%;
+    height: 100%;
+    text-align: center;
+    font-size: 28px;
+    line-height: 48px;
+    color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.1);
+    pointer-events: none;
+  }
+  
+  .box:hover::before {
+    color: rgba(255, 255, 255, 0.6);
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  
+  .box select option {
+    padding: 40px;
+  }
+  /* 추천수별 또는 조회수별 선택 박스 끝 */

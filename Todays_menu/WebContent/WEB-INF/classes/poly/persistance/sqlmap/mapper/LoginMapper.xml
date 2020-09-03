@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="poly.persistance.mapper.LoginMapper">
+
+	<!-- 로그인 확인 -->
+	<select id="login_check" parameterType="UserInfoDTO" resultType="String">
+		SELECT USER_EMAIL FROM mydb.user_info
+		WHERE USER_EMAIL = #{user_email} 
+		AND USER_PASSWORD = #{user_password};
+	</select>
+	
+	<!-- 모든유저정보 -->
+	<select id="getUserInfo" resultType="UserInfoDTO">
+	SELECT USER_SEQ_NO, USER_EMAIL, USER_AUTHOR
+	FROM mydb.user_info;	
+	</select>
+
+	<!-- 유저삭제 -->
+	<delete id="userDelete" parameterType="String">
+	DELETE FROM mydb.user_info
+	WHERE USER_SEQ_NO = #{user_seq_no}
+	</delete>
+	
+	<!-- 나의냉장고재료저장 -->
+	<insert id="my_ig_save" parameterType="String">
+	INSERT INTO mydb.user_info
+	WHERE USER_IG = #{my_ig}
+	</insert>
+	
+	<!-- 나의냉장고불러오기 -->
+	<select id="getMy_ig" parameterType="String">
+	SELECT USER_IG FROM mydb.user_info
+	WHERE USER_EMAIL=#{user_email}
+	</select>
+	
+</mapper>

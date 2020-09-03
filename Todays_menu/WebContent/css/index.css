@@ -1,0 +1,95 @@
+
+/* 모든 링크들 밑줄제거 전체적용 */
+a{
+    text-decoration: none !important;
+}
+a:hover { color: blue; text-decoration: none;}
+
+.menu_icon_p{
+    margin-top: 3px;
+    font-size: 20px;
+    color: rgb(255, 255, 255);
+}
+
+/* 레시피 검색창 시작 */
+.search_display{
+    margin-top: 70px;
+    text-align: center;
+}
+.green_window {
+    display: inline-block;
+	width: 366px; height: 39px;
+	border: 3px solid #e9d59e;
+    background: white;
+    padding: 1px;
+}
+.input_text {
+	width: 348px; height: 21px;
+	margin: 6px 0 0 9px;
+	border: 0;
+	line-height: 21px;
+	font-weight: bold;
+	font-size: 16px;
+	outline: none;
+}
+.sch_smit {
+	width: 54px; height: 40px;
+	margin: 0; border: 0;
+	vertical-align: top;
+	background: rgb(226, 195, 110);
+	color: rgb(70, 65, 65);
+	font-weight: bold;
+	border-radius: 1px;
+	cursor: pointer;
+}
+.sch_smit:hover {
+	background: #56C82C;
+}
+/* 레시피 검색창  끝 */
+
+
+/* 홈 아이콘 시작 */
+#logo{
+    margin-top: 70px;
+    margin-left: 100px;
+}
+/* 홈 아이콘 끝 */
+
+
+
+.login_button{
+    margin-right: 8px;
+}
+
+/* body안에 들어가는 내용 전체 적용하는 양옆, 위 여백 시작 */
+.body_div{
+    padding-left: 150px;
+    padding-right: 150px;
+    padding-top: 30px;
+    width: 100%;
+    height: 100%;
+}
+/* body안에 들어가는 내용 전체 적용하는 양옆, 위 여백 끝 */
+
+.index_menu_icon {
+    text-align: center;
+    display: inline;
+  }
+  
+  .icon_div{
+    display: inline-block;
+    padding-top: 15px;
+    width: 200px;
+    height: 210px;
+    background-color: gray;
+    border-radius: 15px;
+    text-align: center;
+    margin-left: 30px;
+    margin-bottom: 50px;
+    margin-top: 10px;
+    margin-right: 30px;
+  }
+  
+  .icon_div_inline{
+    display: inline;
+  }

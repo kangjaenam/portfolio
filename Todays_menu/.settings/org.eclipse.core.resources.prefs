@@ -1,0 +1,5 @@
+eclipse.preferences.version=1
+encoding//WebContent/TTS.jsp=UTF-8
+encoding//WebContent/WEB-INF/view/ingredient_details.jsp=UTF-8
+encoding//WebContent/WEB-INF/view/state/Login.jsp=UTF-8
+encoding//WebContent/WEB-INF/view/state/NotLogin.jsp=UTF-8

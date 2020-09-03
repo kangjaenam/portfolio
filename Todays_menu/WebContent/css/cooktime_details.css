@@ -1,0 +1,54 @@
+/* 모든링크 밑줄 제거 시작 */
+a{
+    text-decoration: none;
+}
+a:hover {color: blue; text-decoration: none;}
+/* 모든링크 밑줄 제거 끝 */
+
+
+/* 홈 아이콘 시작 */
+#logo{
+    margin-top: 70px;
+    margin-left: 100px;
+}
+/* 홈 아이콘 끝 */
+
+/* body안에 들어가는 내용 전체 적용하는 양옆, 위 여백 시작 */
+.body_div{
+    padding-left: 150px;
+    padding-right: 150px;
+    padding-top: 30px;
+    width: 100%;
+    height: 100%;
+}
+/* body안에 들어가는 내용 전체 적용하는 양옆, 위 여백 끝 */
+
+
+/* 원하는 조리시간 선택 제목 부분 시작 */
+.cookTime_title{
+    font-size: 40px;
+    font-family: 'Hanna', serif; 
+    color: rgb(90, 168, 199);
+}
+/* 원하는 조리시간 선택 제목 부분 끝 */
+
+.text_center{
+    text-align: center;
+}
+
+/* 조리시간 선택지 시작 */
+.time_select_bg{
+    background-color: #90d3ae;
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 23px;
+    margin-left: 630px;
+    margin-right: 630px;
+}
+
+.time_select{
+    font-size: 32px;
+    font-family: 'Hanna', serif;
+    color: #721b88;
+}
+/* 조리시간 선택지 끝 */

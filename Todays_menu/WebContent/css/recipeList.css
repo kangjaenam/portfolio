@@ -1,0 +1,13 @@
+/* 홈 아이콘 시작 */
+#logo{
+    margin-top: 70px;
+    margin-left: 100px;
+}
+/* body안에 들어가는 내용 전체 적용하는 양옆, 위 여백 시작 */
+.body_div{
+    padding-left: 150px;
+    padding-right: 150px;
+    padding-top: 30px;
+    width: 100%;
+    height: 100%;
+}

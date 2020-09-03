@@ -1,0 +1,15 @@
+/* 모든링크 밑줄 제거 */
+a{
+    text-decoration: none;
+}
+a:hover {color: blue; text-decoration: none;}
+
+
+.login_div{
+    margin-top: 100px;
+    width: 400px;
+    height: 680px;
+    background-color: rgb(238, 190, 101);
+    padding: 30px;
+    border-radius: 10px;
+}

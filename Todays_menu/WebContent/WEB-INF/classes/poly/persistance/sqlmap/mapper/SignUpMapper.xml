@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="poly.persistance.mapper.SignUpMapper">
+
+	<!-- 회원가입전 이메일 중복확인 -->
+	<select id="exists_user" parameterType="UserInfoDTO" resultType="int">
+		SELECT COUNT(*) FROM mydb.user_info
+		WHERE USER_EMAIL =#{user_email}
+	</select>
+
+
+	<!-- 회원가입 -->
+	<insert id="insert_user" parameterType="UserInfoDTO">
+		INSERT INTO
+		mydb.user_info
+		(
+		USER_EMAIL,
+		USER_PASSWORD,
+		REG_DT,
+		CHG_DT,
+		USER_AUTHOR
+		)
+		VALUES (
+		#{user_email},
+		#{user_password},
+		SYSDATE(),
+		SYSDATE(),
+		'1'
+		)
+	</insert>
+	
+	<!-- 이메일 업데이트 -->
+	<update id="update_email" parameterType="UserInfoDTO">
+		UPDATE mydb.user_info
+		SET USER_EMAIL = #{user_email}
+		WHERE USER_EMAIL = #{ss_email}
+	</update>
+	
+	<!-- 비밀번호 업데이트 -->
+	<update id="update_password" parameterType="UserInfoDTO">
+		UPDATE mydb.user_info
+		SET USER_PASSWORD = #{user_password}
+		WHERE USER_EMAIL = #{ss_email}
+	</update>
+
+</mapper>
