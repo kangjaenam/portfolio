@@ -1,0 +1,75 @@
+.review_detail_all
+{
+    width: 800px;
+    margin: 0 auto;
+    margin-top: 10%;
+    margin-bottom: 5%;
+    padding: 15px;
+    border: solid 5px gray;
+    border-radius: 15px;
+    background-color: #E1CFB0;
+}
+.review_type
+{
+    font-size: 20px;
+    font-weight: 700;
+}
+.reviewlist_button
+{
+	width: 120px;
+	height: 52px;
+	background: #7836c6;
+	border: 1px solid #7836c6;
+	outline: none;
+	border-radius: 12px;
+	cursor: pointer;
+	font-size: 20px;
+	font-weight: 700;
+	color: #ffffff;
+    margin-top: 20px;
+}
+.reviewlist_hr
+{
+    border: solid 1px #718FD9;
+}
+.review_star
+{
+    float: right;
+    margin-right: 15px;
+}
+.review_contents
+{
+    font-weight: 500;
+}
+
+.review_write_contents
+{
+    width: 97%;
+    height: 500px;
+    font-size: 17px;
+    border: 2px solid #8196CD;
+    border-radius: 15px;
+    padding: 10px;
+}
+/* 리뷰 제목 작성 */
+.review_write_title
+{
+	width: 550px;
+    font-size: 20px;
+    padding: 5px;
+    border: 2px solid #8196CD;
+    border-radius: 10px;
+}
+
+
+/* 별점 주기 */
+.starR{
+  background: url('http://miuu227.godohosting.com/images/icon/ico_review.png') no-repeat right 0;
+  background-size: auto 100%;
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  text-indent: -9999px;
+  cursor: pointer;
+}
+.starR.on{background-position:0 0;}

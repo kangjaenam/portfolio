@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- JAVA와 연결할 Mapper 파일 설정 -->
+<mapper namespace="poly.persistance.mapper.AdminMapper">
+
+	<!-- 유저 정보 불러오기-->
+	<select id="getUserInfo" parameterType="NoticeDTO" resultType="UserInfoDTO">
+	<![CDATA[
+	SELECT USER_NO, REG_DT, NICKNAME, AUTHORITY, STATE
+	FROM 
+	(
+		SELECT A.* , ROWNUM as RNUM
+		FROM
+		(
+			SELECT *
+			FROM USER_INFO
+			ORDER BY USER_NO
+			DESC
+		)A
+			WHERE ROWNUM <= #{endNum}
+	)
+	WHERE 
+		RNUM>=#{startNum}
+	]]>
+	</select>
+	
+	<!-- 유저 총 수 세기 -->
+	<select id="countAllUser" resultType="Int">
+	SELECT COUNT(*) FROM USER_INFO
+	</select>
+	
+	<!-- 회원 권한 정보 가져오기 -->
+	<select id="getAuthority" parameterType="String" resultType="String">
+	SELECT 
+		AUTHORITY
+	FROM 
+		USER_INFO
+	WHERE
+		USER_NO = #{user_no}
+	</select>
+	
+	<!-- 회원 권한 변경(사용자 -> 관리자) -->
+	<update id="changeAuthority" parameterType="String">
+	UPDATE USER_INFO
+	SET
+		AUTHORITY = '0'
+	WHERE
+		USER_NO = #{usesr_no}
+	</update>
+	
+	<!-- 회원 권한 변경(관리자 -> 사용자)  -->
+	<update id="changeAuthority2" parameterType="String">
+	UPDATE USER_INFO
+	SET
+		AUTHORITY = '1'
+	WHERE
+		USER_NO = #{usesr_no}
+	</update>
+	
+	<!-- 회원 상태 정보 가져오기 -->
+	<select id="getState" parameterType="String" resultType="String">
+	SELECT 
+		STATE
+	FROM 
+		USER_INFO
+	WHERE
+		USER_NO = #{user_no}
+	</select>
+	
+	<!-- 회원 상태 변경(정상 -> 정지) --> 
+	<update id="chageState" parameterType="String">
+	UPDATE USER_INFO
+	SET
+		STATE = '1'
+	WHERE
+		USER_NO = #{usesr_no}
+	</update>
+	
+	<!-- 회원 상태 변경(정지 -> 정상) --> 
+	<update id="chageState2" parameterType="String">
+	UPDATE USER_INFO
+	SET
+		STATE = '0'
+	WHERE
+		USER_NO = #{usesr_no}
+	</update>
+	
+	<!-- 관광지 추가 -->
+	<insert id="insertTour" parameterType="NoticeDTO">
+	INSERT INTO TOUR_LIST
+		(
+			TOUR_NO,
+			TITLE,
+			TYPE,
+			ADDR,
+			TEL,
+			TIME,
+			LAT,
+			HAR,
+			EXPLAIN,
+			VIEWCOUNT,
+			SEARCHTITLE
+		)
+		VALUES
+		(	
+			(SELECT NVL(MAX(TOUR_NO),0)+1 FROM TOUR_LIST),
+			#{title},
+			#{type},
+			#{addr},
+			#{tel},
+			#{time},
+			#{lat},
+			#{har},
+			#{explain},
+			0,
+			#{searchtitle}
+		)
+	</insert>
+	
+	<!-- 가장최근 추가한 관광지 번호 불러오기 -->
+	<select id="getTourNo" resultType="String">
+	SELECT NVL(MAX(TOUR_NO),0) FROM TOUR_LIST
+	</select>
+	
+	<!-- 관광지 사진 넣기 -->
+	<insert id="tourImg" parameterType="NoticeDTO">
+	INSERT INTO FILE_INFO
+		(
+			FILE_NO,
+			TOUR_NO,
+			FILEPATH,
+			FILENAME
+		)
+		VALUES
+		(
+			(SELECT NVL(MAX(FILE_NO),0)+1 FROM FILE_INFO),
+			#{tour_no},
+			'/files/',
+			#{fileName}
+		)
+	</insert>
+	
+	<!-- 관광지 삭제 -->
+	<delete id="tourDelete" parameterType="String">
+	DELETE FROM TOUR_LIST
+		WHERE 
+			TOUR_NO = #{tour_no}
+	</delete>
+
+</mapper>

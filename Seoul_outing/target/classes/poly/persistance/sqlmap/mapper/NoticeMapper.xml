@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- JAVA와 연결할 Mapper 파일 설정 -->
+<mapper namespace="poly.persistance.mapper.NoticeMapper">
+
+	<!-- 유형 선택 시 보여줄 리스트 선택 -->
+	<select id="getTourList" parameterType="NoticeDTO"
+		resultType="NoticeDTO">
+		<![CDATA[
+		SELECT TOUR_NO, VIEWCOUNT, TITLE, TYPE
+		FROM 
+		(
+			SELECT A.* , ROWNUM as RNUM
+         FROM
+         	(
+         		SELECT *
+         		FROM TOUR_LIST
+         		WHERE
+				TYPE = #{type}
+         		ORDER BY TOUR_NO
+         		ASC
+         	)A
+         		WHERE ROWNUM <= #{endNum}
+		)
+		WHERE 
+		RNUM>=#{startNum}
+		 ]]>
+	</select>
+	
+	<!-- 관광지 사진이 있는지 검사 -->
+	<select id="fileCheck" parameterType="String" resultType="String">
+	SELECT COUNT (*)
+	FROM FILE_INFO
+	WHERE TOUR_NO = #{tour_no}
+	</select>
+
+	<!-- 관광지 선택 시 관광지 상세 -->
+	<select id="tourDetail" parameterType="String" resultType="NoticeDTO">
+		SELECT 
+		T.TOUR_NO, T.VIEWCOUNT, T.TITLE, T.TYPE, T.ADDR, T.TEL, T.EXPLAIN, T.TIME,
+		F.FILEPATH, F.FILENAME
+		FROM 
+		TOUR_LIST T, FILE_INFO F
+		WHERE
+		T.TOUR_NO = #{tour_no} AND F.TOUR_NO = #{tour_no}
+	</select>
+	
+	<!-- 관광지 상세 (사진이 없는 경우) -->
+	<select id="tourDetail2" parameterType="String" resultType="NoticeDTO">
+		SELECT 
+		TOUR_NO, VIEWCOUNT, TITLE, TYPE, ADDR, TEL, EXPLAIN, TIME
+		FROM 
+		TOUR_LIST 
+		WHERE
+		TOUR_NO = #{tour_no} 
+	</select>
+	
+	<!-- 리뷰 작성 -->
+	<insert id="insertReview" parameterType="NoticeDTO">
+		INSERT INTO
+		REVIEW_LIST(
+		REVIEW_NO,
+		TITLE,
+		CONTENT,
+		REG_NICK,
+		TOUR_NO,
+		STARCOUNT,
+		VIEWCOUNT,
+		USER_NO
+		)
+		VALUES(
+		(SELECT
+		NVL(MAX(REVIEW_NO),0)+1 FROM REVIEW_LIST),		
+		#{title},
+		#{content},
+		#{reg_nick},
+		#{tour_no},
+		#{starCount},
+		0,
+		#{user_no}
+		)
+	</insert>
+	
+	<!-- 최근 리뷰 6개 불러오기 -->
+	<select id="getLatelyReview" parameterType="String" resultType="NoticeDTO">
+		SELECT TITLE, CONTENT, REVIEW_NO, STARCOUNT
+		FROM(
+		SELECT *
+		FROM 
+		REVIEW_LIST
+		WHERE
+		TOUR_NO = #{tour_no}
+		ORDER BY REG_DATE DESC
+		)
+		WHERE
+		<![CDATA[
+		ROWNUM<=6
+		]]>
+	</select>
+	
+	<!-- 리뷰상세보기 -->
+	<select id="reviewDetail" parameterType="String" resultType="NoticeDTO">
+		SELECT R.TITLE AS title,R.STARCOUNT, R.CONTENT, R.REG_NICK, R.REG_DATE, R.TOUR_NO, R.USER_NO,
+		T.TITLE AS title2
+		FROM 
+		REVIEW_LIST R, TOUR_LIST T
+		WHERE
+		R.REVIEW_NO = #{review_no} AND T.TOUR_NO = R.TOUR_NO
+	</select>
+	
+	<!-- 관광지 조회수 업데이트 -->
+	<update id="viewcountAdd" parameterType="String">
+	UPDATE TOUR_LIST
+	SET
+		VIEWCOUNT = VIEWCOUNT+1
+	WHERE
+		TOUR_NO = #{tour_no}
+	</update>
+	
+	<!-- 리뷰 총 갯수 -->
+	<select id="countReview" parameterType="String" resultType="String">
+	SELECT COUNT(*) FROM REVIEW_LIST
+	WHERE TOUR_NO = #{tour_no}
+	</select>
+	
+	<!-- 해당 관광지 별점 평균 -->
+	<select id="getStarAvg" parameterType="String" resultType="String">
+	SELECT SUM(STARCOUNT)/COUNT(*) FROM REVIEW_LIST
+	WHERE TOUR_NO = #{tour_no}
+	</select>
+	
+	<!-- 관광지 번호로 리뷰 목록 호출 -->
+	<select id="getReviewList" parameterType="NoticeDTO" resultType="NoticeDTO">
+	<![CDATA[
+	SELECT REVIEW_NO, TITLE, REG_NICK, REG_DATE, STARCOUNT, VIEWCOUNT
+	FROM 
+	(
+		SELECT A.*,ROWNUM as RNUM
+		FROM
+		(
+			SELECT *
+			FROM REVIEW_LIST
+			WHERE
+			TOUR_NO = #{tour_no}
+			ORDER BY REVIEW_NO DESC
+		)A
+		WHERE ROWNUM <= #{endNum}
+	)
+	WHERE 
+		RNUM>=#{startNum}
+	 ]]>
+	</select>	
+	
+	<!-- 리뷰 조회수 업데이트 -->
+	<update id="viewcountAdd2" parameterType="String">
+	UPDATE REVIEW_LIST
+	SET
+		VIEWCOUNT = VIEWCOUNT+1
+	WHERE
+		REVIEW_NO = #{review_no}
+	</update>
+	
+	<!-- 메인페이지 관광지 검색 -->
+	<select id="searchTourname" parameterType="NoticeDTO" resultType="NoticeDTO">
+	<![CDATA[
+	SELECT TOUR_NO, VIEWCOUNT, TITLE, TYPE
+		FROM 
+		(
+			SELECT A.* , ROWNUM as RNUM
+			FROM
+			(
+				SELECT *
+				FROM TOUR_LIST
+				WHERE
+				SEARCHTITLE LIKE'%'||#{searchtitle}||'%'
+				ORDER BY TOUR_NO
+         		ASC
+			)A
+			WHERE ROWNUM <= #{endNum}
+		)
+		WHERE 
+		RNUM>=#{startNum}
+		]]>
+	</select>
+	
+	<!-- 리뷰 수정 내용으로 업데이트 -->
+	<update id="modifyReview" parameterType="NoticeDTO">
+	UPDATE REVIEW_LIST
+	SET
+		TITLE = #{title},
+		CONTENT = #{content},
+		REG_NICK = #{reg_nick},
+		TOUR_NO = #{tour_no},
+		STARCOUNT = #{starCount}
+	WHERE
+		REVIEW_NO = #{review_no}			
+	</update>
+	
+	<!-- 관광지명 가져오기 -->
+	<select id="getTourName" parameterType="String" resultType="String">
+	SELECT TITLE
+	FROM TOUR_LIST
+	WHERE TOUR_NO = #{tour_no}
+	</select>
+	
+	<!-- 마커 찍을 관광지 정보가져오기 -->
+	<select id="getMarker" resultType="map">
+	SELECT LAT, HAR, TITLE, ADDR, TOUR_NO
+	FROM TOUR_LIST
+	</select>
+	
+	<!-- 지역별 관광지 지역 선택 -->
+	<select id="searchArea" parameterType="NoticeDTO" resultType="NoticeDTO">
+	<![CDATA[
+	SELECT TOUR_NO, VIEWCOUNT, TITLE, TYPE
+		FROM 
+		(
+			SELECT A.* , ROWNUM as RNUM
+			FROM
+			(
+				SELECT *
+         		FROM TOUR_LIST
+         		WHERE
+         		ADDR LIKE'%'||#{addr}||'%'
+         		ORDER BY TOUR_NO
+         		ASC
+			)A
+				WHERE ROWNUM <= #{endNum}
+		)
+		WHERE 
+		RNUM>=#{startNum}
+		]]>
+	</select>
+	
+	<!-- 내가 쓴 리뷰 -->
+	<select id="getMyReview" parameterType="NoticeDTO" resultType="NoticeDTO">
+	<![CDATA[
+	SELECT REVIEW_NO, TITLE, REG_NICK, REG_DATE, STARCOUNT, VIEWCOUNT
+	FROM 
+	(
+		SELECT A.* , ROWNUM as RNUM
+		FROM
+		(
+			SELECT *
+			FROM REVIEW_LIST
+			WHERE
+			USER_NO = #{user_no}
+			ORDER BY REVIEW_NO
+			DESC
+		)A
+			WHERE ROWNUM <= #{endNum}
+	)
+		WHERE 
+		RNUM>=#{startNum}
+	 ]]>
+	</select>	
+	
+	<!-- 리뷰 삭제 -->
+	<delete id="reviewDelete" parameterType="String">
+	DELETE
+		FROM REVIEW_LIST
+	WHERE
+		REVIEW_NO = #{review_no}
+	</delete>
+	
+	<!-- 해당 관광지 총 갯수 -->
+	<select id="getAllList" parameterType="String" resultType="Int">
+	SELECT COUNT(*) FROM TOUR_LIST
+	WHERE TYPE = #{type}
+	</select>
+	
+	<!-- 해당 관광지 명을 포함하는 관광지 총 갯수 -->
+	<select id="getAllList2" parameterType="String" resultType="Int">
+	SELECT COUNT(*) FROM TOUR_LIST
+	WHERE SEARCHTITLE = #{searchtitle}
+	</select>
+	
+	<!-- 관광지 지역으로 검색한 관광지 총 갯수 -->
+	<select id="getAllList3" parameterType="String" resultType="Int">
+	SELECT COUNT(*) FROM TOUR_LIST
+	WHERE ADDR LIKE'%'||#{addr}||'%'
+	</select>
+	
+	
+	<!-- 내가 쓴 리뷰 총 갯수 -->
+	<select id="countMyReview" parameterType="String" resultType="Int">
+	SELECT COUNT(*) FROM REVIEW_LIST
+	WHERE USER_NO = #{user_no}
+	</select>
+	
+</mapper>

@@ -1,0 +1,185 @@
+.review_list_bgtable
+{
+    background-color: #F8F6DC;
+}
+.review_list_bg
+{
+    margin-top: 300px;
+    background-image: url("../images/login.png")
+}
+
+
+
+
+.sub_news, .sub_news th, .sub_news th, .sub_news td
+{
+    border: 0;
+}
+.sub_news a
+{
+    color:#383838;
+    text-decoration: none;
+}
+.sub_news
+{
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 5%;
+    border-bottom: 1px solid #999;
+    color: #666;
+    font-size: 12px;
+    table-layout: fixed;
+}
+.sub_news caption
+{
+    display: none;
+}
+.sub_news th
+{
+    padding: 5px 0 6px;
+    border-top: solid 1px #999;
+    border-bottom: solid 1px #b2b2b2;
+    background-color: #f1f1f4;
+    color: #333;
+    font-weight: bold;
+    line-height: 20px;
+    vertical-align: top;
+}
+.sub_news td
+{
+    padding: 21px 0 21px;
+    border-bottom: solid 1px #d2d2d2;
+    text-align: center;
+    line-height: 18px;
+}
+.sub_news .date, .sub_news .hit
+{
+    padding: 0;
+    font-family: Tahoma;
+    font-size: 11px;
+    line-height: normal;
+}
+.sub_news .title
+{
+    text-align: left;
+    padding-left: 15px;
+    font-size: 20px;
+    font-weight: 900;
+}
+.sub_news .title .pic, .sub_news .title .new
+{
+    margin: 0 0 2px;
+    vertical-align: middle;
+}
+.sub_news a.comment
+{
+    padding: 0;
+    background: none;
+    color: #f00;
+    font-size: 12px;
+    font-weight: bold;
+}
+.sub_news tr .title a
+{
+    padding-left: 39%;
+    background: url(첨부파일/ic_reply.png) 0 1px no-repeat;
+}
+
+.list_num
+{
+   text-align: center;
+   margin-top: 30px;
+}
+.list_href
+{
+    margin-left: 4px;
+    text-decoration: none;
+    color: #031621;
+}
+
+/* 관광지 검색 창 */
+.domain_search_input {
+    width: calc(100% - 141px);
+    height: 60px;
+    background: #FFFFFF;
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+    border: none;
+    outline: none;
+    padding-left: 30px;
+    font-size: 24px;
+    font-weight: 500;
+    color: #1f1d22;
+}
+
+.domain_search_dropdown {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 175px;
+    height: 60px;
+    background: #7836c6;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    cursor: pointer;
+    padding-left: 19px;
+}
+
+.domain_search_selected {
+    width: 100%;
+    font-size: 24px;
+    font-weight: 500;
+    color: #FFFFFF;
+    margin-left: 28px;
+}
+
+@media only screen and (max-width: 991px)
+{
+    .domain_search_selected, .domain_search_dropdown ul li, .domain_search_button 
+    {
+    font-size: 20px;
+    }
+}
+
+@media only screen and (max-width: 991px){
+    .domain_search_input 
+    {
+        height: 50px;
+    }
+}
+
+.domain_search_button {
+    width: 166px;
+    height: 60px;
+    background: #1befc5;
+    border-radius: 12px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 24px;
+    font-weight: 600;
+    color: #1f1d22;
+}
+
+@media only screen and (max-width: 991px){
+    .domain_search_dropdown {
+        height: 50px;
+    }    
+}
+
+.col-lg-10{
+position: relative;
+    width: 100%;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+.domain_search_form {
+    width: 100%;
+}
+@media (min-width: 768px){
+    .flex-md-row {
+        -ms-flex-direction: row!important;
+        flex-direction: row!important;
+    }
+}
