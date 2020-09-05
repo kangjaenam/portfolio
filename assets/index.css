@@ -181,3 +181,13 @@ a:hover {
   background-color: #40407a;
   color: white;
 }
+
+.section_top {
+  width: 100%;
+  position: absolute;
+  text-align: center;
+  margin: 0 auto;
+  color: white;
+  padding-top: 1.5%;
+  font-size: xx-large;
+}
